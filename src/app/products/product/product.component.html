@@ -1,9 +1,9 @@
-<div class="d-flex justify-content-center overflow-hidden" style="overflow-y: auto;">
-        <div class="d-flex justify-content-center container mt-5">
+<div class="d-flex container" style="overflow-y: scroll;">
+    <div class="m-5">
         <div class="card p-3 bg-white">
             <div class="d-flex justify-content-between">
                 <i class="fa-brands fa-apple"></i>
-                <i class="fa-solid fa-heart" [ngClass]="{'text-danger':isClicked ,'text-body-tertiary':!isClicked}" (click)="addToFav($event)" role="button">
+                <i class="fa-solid fa-heart" [ngClass]="{'text-danger':isClicked,'text-dark':!isClicked}" (click)="addToFav($event)" role="button">
                 </i>
             </div>
             <div class="about-product text-center mt-2"><img src="https://i.imgur.com/3VTaSeb.png" width="300">
@@ -13,13 +13,16 @@
                 </div>
             </div>
             <div class="stats mt-2">
-                <div class="d-flex justify-content-between p-price"><span>Pro Display XDR</span><span>$5,999</span></div>
+                <div class="d-flex justify-content-between p-price"><span>Pro Display XDR</span><span>$5,999</span>
+                </div>
                 <div class="d-flex justify-content-between p-price"><span>Pro stand</span><span>$999</span></div>
-                <div class="d-flex justify-content-between p-price"><span>Vesa Mount Adapter</span><span>$199</span></div>
+                <div class="d-flex justify-content-between p-price"><span>Vesa Mount Adapter</span><span>$199</span>
+                </div>
             </div>
-            <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Total</span><span>$7,197.00</span>
+            <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <span>Total</span><span>$7,197.00</span>
             </div>
         </div>
     </div>
-    
+
 </div>
