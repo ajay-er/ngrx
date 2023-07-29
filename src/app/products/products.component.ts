@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-
+  isClicked: boolean = false;
+  addToFav($event: Event) {
+    $event.preventDefault();
+    
+  }
 }
