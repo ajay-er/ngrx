@@ -10,6 +10,9 @@ import { StoreModule } from '@ngrx/store';
 import { ProductModule } from './products/product.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { ProductData } from './products/product.data';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, AboutComponent, NotFoundComponent, HomeComponent],
@@ -19,6 +22,8 @@ import { HomeComponent } from './home/home.component';
     ProductModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(ProductData,{ delay: 500 }),
   ],
   providers: [],
   bootstrap: [AppComponent],
