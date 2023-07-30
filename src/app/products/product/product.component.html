@@ -1,9 +1,9 @@
-<div class="d-flex container" style="overflow-y: scroll;">
-    <div class="m-5">
+<div *ngIf="true; else ifThereIsNoProductsSelected" class="d-flex container" style="overflow-y: scroll;">
+    <div class="m-5 d-flex">
         <div class="card p-3 bg-white">
             <div class="d-flex justify-content-between">
                 <i class="fa-brands fa-apple"></i>
-                <i class="fa-solid fa-heart" [ngClass]="{'text-danger':isClicked,'text-dark':!isClicked}" (click)="addToFav($event)" role="button">
+                <i class="fas fa-edit" (click)="editProd($event)" role="button">
                 </i>
             </div>
             <div class="about-product text-center mt-2"><img src="https://i.imgur.com/3VTaSeb.png" width="300">
@@ -12,17 +12,82 @@
                     <h6 class="mt-0 text-black-50">Apple pro display XDR</h6>
                 </div>
             </div>
-            <div class="stats mt-2">
-                <div class="d-flex justify-content-between p-price"><span>Pro Display XDR</span><span>$5,999</span>
-                </div>
-                <div class="d-flex justify-content-between p-price"><span>Pro stand</span><span>$999</span></div>
-                <div class="d-flex justify-content-between p-price"><span>Vesa Mount Adapter</span><span>$199</span>
-                </div>
-            </div>
             <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                <span>Total</span><span>$7,197.00</span>
+                <span>Price</span><span>$7,197.00</span>
+            </div>
+        </div>
+
+        <!-- edit -->
+        <div *ngIf="editButton" class="card p-3 ms-3 bg-white">
+            <form>
+                <fieldset>
+                    <div class="form-group row mt-3">
+                        <label class="col-md-3 col-form-label" for="productNameId">Name</label>
+
+                        <div class="col-md-9">
+                            <input class="form-control" id="productNameId" type="text" placeholder="Product" />
+
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label class="col-md-3 col-form-label" for="subtitle">Subtitle</label>
+
+                        <div class="col-md-9">
+                            <input class="form-control" id="subtitle" type="text" placeholder="subtitle" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label class="col-md-3 col-form-label" for="productCategory">category</label>
+
+                        <div class="col-md-9">
+                            <input class="form-control" id="productCategory" type="text" placeholder="Category" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label class="col-md-3 col-form-label" for="productPrice">Price</label>
+
+                        <div class="col-md-9">
+                            <input class="form-control" id="productPrice" type="text" placeholder="Price (required)" />
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex mt-5 col-md-10 col-md-offset-2">
+                        <span>
+                            <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px">
+                                Save
+                            </button>
+                        </span>
+                        <span>
+                            <button class="btn btn-light" type="button" style="width:80px;margin-right:10px">
+                                Cancel
+                            </button>
+                        </span>
+                        <span>
+                            <button class="btn btn-light" type="button" style="width:80px">
+                                Delete
+                            </button>
+                        </span>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<ng-template #ifThereIsNoProductsSelected>
+    <div class="d-flex container" style="overflow-y: scroll;">
+        <div class="m-5">
+            <div class="card p-3 bg-white">
+                <div class="stats mt-2">
+                    <div class="d-flex justify-content-between p-price"><span>No products selected</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-</div>
+</ng-template>

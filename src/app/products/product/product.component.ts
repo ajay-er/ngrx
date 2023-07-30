@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
 })
-export class ProductComponent {
-  isClicked: boolean = false;
-  addToFav($event: Event) {
+export class ProductComponent implements OnInit {
+  editButton: boolean = false;
+  
+  editProd($event: Event) {
     $event.preventDefault();
-    this.isClicked = !this.isClicked
+    this.editButton = !this.editButton;
   }
 
+  constructor(private store: Store<any>) {}
+
+  ngOnInit(): void {}
 }

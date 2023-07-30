@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    background-image: linear-gradient(
+      -30deg,
+      #3f51b5 0%,
+      #2196f3 50%,
+      #87ceeb 100%
+    );
+    overflow-x: hidden;
+    color: white;
+    font-family: sans-serif;
+    height: 100vh;
+  }
+  
+
+  
