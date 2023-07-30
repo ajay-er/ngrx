@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-productshell',
@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./productshell.component.css']
 })
 export class ProductshellComponent {
+  @Input() editButton = false;
 
+  onEditProduct() {
+    this.editButton = !this.editButton;
+  }
+  
 }

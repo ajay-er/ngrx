@@ -1,20 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
 })
-export class ProductComponent implements OnInit {
-  editButton: boolean = false;
+export class ProductComponent  {
   
-  editProd($event: Event) {
+  @Output() editProduct = new EventEmitter<boolean>();
+
+  editProd($event:Event) {
     $event.preventDefault();
-    this.editButton = !this.editButton;
+    this.editProduct.emit()
   }
 
-  constructor(private store: Store<any>) {}
-
-  ngOnInit(): void {}
 }

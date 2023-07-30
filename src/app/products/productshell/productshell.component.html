@@ -2,8 +2,9 @@
     <div class='col-md-4 p-5'>
         <app-productlist></app-productlist>
     </div>
-    <div class='col-md-8'>
-        <app-product></app-product>
+    <div class='col-md-8 d-flex'>
+        <app-product (editProduct)="onEditProduct()"></app-product>
+        <app-productedit *ngIf="editButton"></app-productedit>
     </div>
   </div>
 
