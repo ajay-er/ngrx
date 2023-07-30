@@ -28,7 +28,7 @@ export class ProductService {
     }
     return this.http.get<Product[]>(this.productsUrl)
       .pipe(
-        tap(data => console.log(JSON.stringify(data))),
+        // tap(data => console.log(JSON.stringify(data))),
         tap(data => this.products = data),
         catchError(this.handleError)
       );

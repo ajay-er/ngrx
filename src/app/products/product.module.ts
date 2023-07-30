@@ -6,9 +6,15 @@ import { ProductshellComponent } from './productshell/productshell.component';
 import { ProductlistComponent } from './productlist/productlist.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { productReducer } from './state/product.reducer';
 
 @NgModule({
-  imports: [CommonModule, ReactiveFormsModule,FormsModule, StoreModule.forFeature('products', {})],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    StoreModule.forFeature('products', productReducer),
+  ],
   declarations: [
     ProductComponent,
     ProductshellComponent,
