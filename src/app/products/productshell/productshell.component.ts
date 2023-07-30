@@ -11,5 +11,9 @@ export class ProductshellComponent {
   onEditProduct() {
     this.editButton = !this.editButton;
   }
+
+  editButtonToFalse() {
+    this.editButton = false;
+  }
   
 }

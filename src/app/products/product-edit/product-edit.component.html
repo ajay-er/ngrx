@@ -1,38 +1,39 @@
     <div class="mt-5 d-flex">
         <div  class="card p-3 ms-3 bg-white">
-            <form>
+            <form  [formGroup]="productForm">
                 <fieldset>
                     <div class="form-group row mt-3">
                         <label class="col-md-3 col-form-label" for="productNameId">Name</label>
 
                         <div class="col-md-9">
-                            <input class="form-control" id="productNameId" type="text" placeholder="Product" />
+                            <input class="form-control" id="productNameId" type="text" placeholder="Product"
+                            formControlName="title" />
 
                         </div>
                     </div>
                     <div class="form-group row mt-3">
-                        <label class="col-md-3 col-form-label" for="subtitle">Subtitle</label>
+                        <label class="col-md-3 col-form-label" for="subtitleId">Subtitle</label>
 
                         <div class="col-md-9">
-                            <input class="form-control" id="subtitle" type="text" placeholder="subtitle" />
-
-                        </div>
-                    </div>
-
-                    <div class="form-group row mt-3">
-                        <label class="col-md-3 col-form-label" for="productCategory">category</label>
-
-                        <div class="col-md-9">
-                            <input class="form-control" id="productCategory" type="text" placeholder="Category" />
+                            <input  formControlName="subtitle" class="form-control" id="subtitleId" type="text" placeholder="subtitle" />
 
                         </div>
                     </div>
 
                     <div class="form-group row mt-3">
-                        <label class="col-md-3 col-form-label" for="productPrice">Price</label>
+                        <label class="col-md-3 col-form-label" for="productCategoryId">category</label>
 
                         <div class="col-md-9">
-                            <input class="form-control" id="productPrice" type="text" placeholder="Price (required)" />
+                            <input  formControlName="category" class="form-control" id="productCategoryId" type="text" placeholder="Category" />
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label class="col-md-3 col-form-label" for="productPriceId">Price</label>
+
+                        <div class="col-md-9">
+                            <input   formControlName="price" class="form-control" id="productPriceId" type="text" placeholder="Price" />
 
                         </div>
                     </div>
@@ -43,13 +44,9 @@
                                 Save
                             </button>
                         </span>
+                       
                         <span>
-                            <button class="btn btn-light" type="button" style="width:80px;margin-right:10px">
-                                Cancel
-                            </button>
-                        </span>
-                        <span>
-                            <button class="btn btn-light" type="button" style="width:80px">
+                            <button class="btn btn-light" type="button" style="width:80px" (click)="deleteProduct(product)">
                                 Delete
                             </button>
                         </span>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Product } from '../Product';
 import { ProductService } from '../product.service';
 
@@ -33,7 +33,9 @@ export class ProductlistComponent implements OnInit {
     this.productService.changeSelectedProduct(this.productService.newProduct());
   }
 
+  @Output() prod = new EventEmitter<boolean>()
   productSelected(product: Product): void {
+    this.prod.emit();
     this.productService.changeSelectedProduct(product);
   }
 }
