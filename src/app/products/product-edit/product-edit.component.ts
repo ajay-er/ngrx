@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../product.service';
 import { Product } from '../Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { State, showCurrentProduct } from '../state/product.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-productedit',
@@ -9,9 +11,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./product-edit.component.css'],
 })
 export class ProductEditComponent implements OnInit{
-  constructor(private productService: ProductService, private fb: FormBuilder) {
+  constructor(private productService: ProductService, private fb: FormBuilder,private store:Store<State>) {
     this.productForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      title: ['', Validators.required],
       subtitle: ['', Validators.required],
       price: ['', Validators.required],
       category: ['', Validators.required],
@@ -22,9 +24,16 @@ export class ProductEditComponent implements OnInit{
   productForm: FormGroup;
 
   ngOnInit(): void {
-    this.productService.selectedProductChanges$.subscribe((currentProduct) => {
+   /*  this.productService.selectedProductChanges$.subscribe((currentProduct) => {
       this.displayProduct(currentProduct!);
+    }) */
+
+    this.store.select(showCurrentProduct).subscribe(currProd => {
+      if (currProd) {
+        this.displayProduct(currProd);
+      }
     })
+
   }
 
   displayProduct(currentProduct:Product ) {

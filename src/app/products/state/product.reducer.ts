@@ -37,13 +37,17 @@ export const getShowProductPrice = createSelector(
 export const showCurrentProduct = createSelector(
   getProductFeatureState,
   (state) => {
-     return state.currentProduct
+    return state.currentProduct;
   }
 );
 
 export const products = createSelector(getProductFeatureState, (state) => {
   state.products;
 });
+
+
+
+
 
 //reducers
 export const productReducer = createReducer<ProductState>(
@@ -58,6 +62,25 @@ export const productReducer = createReducer<ProductState>(
     return {
       ...state,
       currentProduct: action.product,
+    };
+  }),
+  on(ProductActions.clearCurrentProduct, (state) => {
+    return {
+      ...state,
+      currentProduct: null,
+    };
+  }),
+  on(ProductActions.initializeCurrentProduct, (state) => {
+    return {
+      ...state,
+      currentProduct: {
+        id: 0,
+        category: '',
+        title: '',
+        subtitle: '',
+        imageSrc: '',
+        price: 0,
+      },
     };
   })
 );
