@@ -40,13 +40,15 @@
 
                     <div class="d-flex mt-5 col-md-10 col-md-offset-2">
                         <span>
-                            <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px">
+                            <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px"
+                           (click)="saveProduct(product)" 
+                           [disabled]="!productForm.valid || !productForm.dirty" >
                                 Save
                             </button>
                         </span>
                        
                         <span>
-                            <button class="btn btn-light" type="button" style="width:80px" (click)="deleteProduct(product)">
+                            <button class="btn btn-danger" type="button" style="width:80px" (click)="deleteProduct(product)">
                                 Delete
                             </button>
                         </span>

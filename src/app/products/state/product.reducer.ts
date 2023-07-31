@@ -86,7 +86,7 @@ export const productReducer = createReducer<ProductState>(
         category: '',
         title: '',
         subtitle: '',
-        imageSrc: '',
+        imageSrc: 'https://i.imgur.com/3VTaSeb.png',
         price: 0,
       },
     };
