@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductData } from './products/product.data';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, AboutComponent, NotFoundComponent, HomeComponent],
@@ -20,6 +21,7 @@ import { ProductData } from './products/product.data';
     BrowserModule,
     AppRoutingModule,
     ProductModule,
+    UserModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,

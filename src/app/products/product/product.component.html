@@ -1,4 +1,4 @@
-<div *ngIf="selectedProduct" class="d-flex container" style="overflow-y: scroll;">
+<div *ngIf="selectedProduct; else noProductSelected" class="d-flex container" style="overflow-y: scroll;">
     <div class="mt-5 me-3 d-flex">
         <div class="card p-3 bg-white">
             <div class="d-flex justify-content-between">
@@ -19,3 +19,13 @@
         </div>
     </div>
 </div>
+
+<ng-template #noProductSelected>
+    <div class="mt-5 me-3 d-flex">
+        <div class="card p-3 bg-white">
+            <div class="d-flex justify-content-between total font-weight-bold">
+                <span>No product selected</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
