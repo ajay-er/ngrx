@@ -14,12 +14,14 @@ export interface State extends AppState.State {
 
 export interface ProductState {
   showProductPrice: boolean;
+  showEditComp: boolean;
   currentProduct: Product | null;
   products: Product[];
 }
 
 const InitialState: ProductState = {
   showProductPrice: true,
+  showEditComp: false,
   currentProduct: null,
   products: [],
 };
@@ -32,7 +34,15 @@ export const getShowProductPrice = createSelector(
   (state) => {
     return state.showProductPrice;
   }
+  
 );
+
+export const showEditComponent = createSelector(
+  getProductFeatureState,
+  (state) => {
+    return state.showEditComp;
+  }
+)
 
 export const showCurrentProduct = createSelector(
   getProductFeatureState,
@@ -44,8 +54,6 @@ export const showCurrentProduct = createSelector(
 export const products = createSelector(getProductFeatureState, (state) => {
   state.products;
 });
-
-
 
 
 
@@ -81,6 +89,18 @@ export const productReducer = createReducer<ProductState>(
         imageSrc: '',
         price: 0,
       },
+    };
+  }),
+  on(ProductActions.hideEditProductComp, (state) => {
+    return {
+      ...state,
+      showEditComp: false,
+    };
+  }),
+  on(ProductActions.toggleEditProductComp, (state) => {
+    return {
+      ...state,
+      showEditComp: !state.showEditComp,
     };
   })
 );

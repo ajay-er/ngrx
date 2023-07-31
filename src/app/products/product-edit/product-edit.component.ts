@@ -4,6 +4,7 @@ import { Product } from '../Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { State, showCurrentProduct } from '../state/product.reducer';
 import { Store } from '@ngrx/store';
+import * as ProductActions from '../state/product.action';
 
 @Component({
   selector: 'app-productedit',
@@ -63,6 +64,12 @@ export class ProductEditComponent implements OnInit{
       // No need to delete, it was never saved
       this.productService.changeSelectedProduct(null);
     }
+  }
+
+  clearProduct() {
+    this.store.dispatch(ProductActions.clearCurrentProduct());
+    this.store.dispatch(ProductActions.hideEditProductComp());
+    this.productForm.reset()
   }
 
 

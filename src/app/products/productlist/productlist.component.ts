@@ -44,15 +44,18 @@ export class ProductlistComponent implements OnInit {
       );
   }
 
-
   
   productSelected(product: Product): void {
     // this.prod.emit();
     // this.productService.changeSelectedProduct(product);
+    
+    if (this.selectedProduct?.id != product.id) {
+      this.store.dispatch(ProductActions.hideEditProductComp());
+    }
 
     this.store.dispatch(ProductActions.setCurrectProduct({ product }));
   }
-  
+
 
   checkChanged(): void {
     // this.showProductPrice = !this.showProductPrice;

@@ -17,3 +17,11 @@ export const clearCurrentProduct = createAction(
 export const initializeCurrentProduct = createAction(
   '[Product] Initialize Current Product'
 );
+
+export const hideEditProductComp = createAction(
+  '[Product] Hide Edit Product Component'
+);
+
+export const toggleEditProductComp = createAction(
+  '[Product] Toggle Edit Product Component'
+);
