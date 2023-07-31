@@ -34,7 +34,6 @@ export const getShowProductPrice = createSelector(
   (state) => {
     return state.showProductPrice;
   }
-  
 );
 
 export const showEditComponent = createSelector(
@@ -42,7 +41,7 @@ export const showEditComponent = createSelector(
   (state) => {
     return state.showEditComp;
   }
-)
+);
 
 export const showCurrentProduct = createSelector(
   getProductFeatureState,
@@ -54,8 +53,6 @@ export const showCurrentProduct = createSelector(
 export const products = createSelector(getProductFeatureState, (state) => {
   state.products;
 });
-
-
 
 //reducers
 export const productReducer = createReducer<ProductState>(
@@ -72,13 +69,13 @@ export const productReducer = createReducer<ProductState>(
       currentProduct: action.product,
     };
   }),
-  on(ProductActions.clearCurrentProduct, (state) => {
+  on(ProductActions.clearCurrentProduct, (state): ProductState => {
     return {
       ...state,
       currentProduct: null,
     };
   }),
-  on(ProductActions.initializeCurrentProduct, (state) => {
+  on(ProductActions.initializeCurrentProduct, (state): ProductState => {
     return {
       ...state,
       currentProduct: {
@@ -91,16 +88,34 @@ export const productReducer = createReducer<ProductState>(
       },
     };
   }),
-  on(ProductActions.hideEditProductComp, (state) => {
+  on(ProductActions.hideEditProductComp, (state): ProductState => {
     return {
       ...state,
       showEditComp: false,
     };
   }),
-  on(ProductActions.toggleEditProductComp, (state) => {
+  on(ProductActions.toggleEditProductComp, (state): ProductState => {
     return {
       ...state,
       showEditComp: !state.showEditComp,
+    };
+  }),
+  on(ProductActions.previewEditProductComp, (state): ProductState => {
+    return {
+      ...state,
+      showEditComp: true,
+    };
+  }),
+  on(ProductActions.loadProductSuccess, (state, action): ProductState => {
+    return {
+      ...state,
+      products: action.products,
+    };
+  }),
+  on(ProductActions.loadProductFailure, (state): ProductState => {
+    // TODO: Adding Error message
+    return {
+      ...state,
     };
   })
 );

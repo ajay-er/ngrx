@@ -25,3 +25,19 @@ export const hideEditProductComp = createAction(
 export const toggleEditProductComp = createAction(
   '[Product] Toggle Edit Product Component'
 );
+
+export const previewEditProductComp = createAction(
+  '[Product] View Edit Product Component'
+);
+
+export const loadProducts = createAction('[Product] Load');
+
+export const loadProductSuccess = createAction(
+  '[Product] Load Success',
+  props<{ products: Product[] }>()
+);
+
+export const loadProductFailure = createAction(
+  '[Product] Load Fail',
+  props<{ error: string }>()
+);

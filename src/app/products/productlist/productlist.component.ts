@@ -50,7 +50,7 @@ export class ProductlistComponent implements OnInit {
     // this.prod.emit();
     // this.productService.changeSelectedProduct(product);
     
-    if (this.selectedProduct?.id != product.id) {
+    if (this.selectedProduct?.id != product.id ) {
       this.store.dispatch(ProductActions.hideEditProductComp());
     }
 
@@ -65,6 +65,7 @@ export class ProductlistComponent implements OnInit {
 
   addNewProd(): void {
     // this.productService.changeSelectedProduct(this.productService.newProduct());
+    this.store.dispatch(ProductActions.previewEditProductComp());
     this.store.dispatch(ProductActions.initializeCurrentProduct())
   }
 }

@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProductData } from './products/product.data';
 import { UserModule } from './user/user.module';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, NavComponent, AboutComponent, NotFoundComponent, HomeComponent],
@@ -26,6 +27,7 @@ import { UserModule } from './user/user.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(ProductData,{ delay: 500 }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],
