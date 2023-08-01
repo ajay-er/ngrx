@@ -15,15 +15,17 @@ export interface State extends AppState.State {
 export interface ProductState {
   showProductPrice: boolean;
   showEditComp: boolean;
-  currentProduct: Product | null;
+  currentProductId: number | null;
   products: Product[];
+  error: string;
 }
 
 const InitialState: ProductState = {
   showProductPrice: true,
   showEditComp: false,
-  currentProduct: null,
+  currentProductId: null,
   products: [],
+  error: '',
 };
 
 //selecters
@@ -43,15 +45,40 @@ export const showEditComponent = createSelector(
   }
 );
 
-export const showCurrentProduct = createSelector(
+export const getCurrentProductId = createSelector(
   getProductFeatureState,
   (state) => {
-    return state.currentProduct;
+    return state.currentProductId;
   }
 );
 
-export const products = createSelector(getProductFeatureState, (state) => {
-  state.products;
+export const showCurrentProduct = createSelector(
+  getProductFeatureState,
+  getCurrentProductId,
+  (state, currentProductId) => {
+    if (currentProductId === 0) {
+      return {
+        id: 0,
+        category: '',
+        title: '',
+        subtitle: '',
+        imageSrc: 'https://i.imgur.com/3VTaSeb.png',
+        price: 0,
+      };
+    } else {
+      return currentProductId
+        ? state.products.find((p) => p.id === currentProductId) ?? null
+        : null;
+    }
+  }
+);
+
+export const getProducts = createSelector(getProductFeatureState, (state) => {
+  return state.products;
+});
+
+export const getError = createSelector(getProductFeatureState, (state) => {
+  return state.error;
 });
 
 //reducers
@@ -66,26 +93,19 @@ export const productReducer = createReducer<ProductState>(
   on(ProductActions.setCurrectProduct, (state, action): ProductState => {
     return {
       ...state,
-      currentProduct: action.product,
+      currentProductId: action.currentProductId,
     };
   }),
   on(ProductActions.clearCurrentProduct, (state): ProductState => {
     return {
       ...state,
-      currentProduct: null,
+      currentProductId: null,
     };
   }),
   on(ProductActions.initializeCurrentProduct, (state): ProductState => {
     return {
       ...state,
-      currentProduct: {
-        id: 0,
-        category: '',
-        title: '',
-        subtitle: '',
-        imageSrc: 'https://i.imgur.com/3VTaSeb.png',
-        price: 0,
-      },
+      currentProductId: 0,
     };
   }),
   on(ProductActions.hideEditProductComp, (state): ProductState => {
@@ -110,12 +130,45 @@ export const productReducer = createReducer<ProductState>(
     return {
       ...state,
       products: action.products,
+      error: '',
     };
   }),
-  on(ProductActions.loadProductFailure, (state): ProductState => {
-    // TODO: Adding Error message
+  on(ProductActions.loadProductFailure, (state, action): ProductState => {
     return {
       ...state,
+      products: [],
+      error: action.error,
+    };
+  }),
+  on(ProductActions.createProductSuccess, (state, action): ProductState => {
+    return {
+      ...state,
+      products: [...state.products, action.product],
+      currentProductId: action.product.id,
+      error: '',
+    };
+  }),
+  on(ProductActions.createProductFailure, (state, action): ProductState => {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }),
+  on(ProductActions.updateProductSuccess, (state, action) => {
+    const updateProducts = state.products.map((item) =>
+      action.product.id === item.id ? action.product : item
+    );
+    return {
+      ...state,
+      currentProductId: action.product.id,
+      products: updateProducts,
+      error: '',
+    };
+  }),
+  on(ProductActions.updateProductFail, (state, action): ProductState => {
+    return {
+      ...state,
+      error: action.error,
     };
   })
 );

@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { State, showCurrentProduct } from '../state/product.reducer';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../state/product.action';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-productedit',
@@ -25,19 +26,15 @@ export class ProductEditComponent implements OnInit {
     });
   }
 
+  product$!: Observable<Product | null>;
+
   product!: Product;
   productForm: FormGroup;
 
   ngOnInit(): void {
-    /*  this.productService.selectedProductChanges$.subscribe((currentProduct) => {
-      this.displayProduct(currentProduct!);
-    }) */
-
-    this.store.select(showCurrentProduct).subscribe((currProd) => {
-      if (currProd) {
-        this.displayProduct(currProd);
-      }
-    });
+    this.product$ = this.store
+      .select(showCurrentProduct)
+      .pipe(tap((currP) => this.displayProduct(currP!)));
   }
 
   displayProduct(currentProduct: Product) {
@@ -75,19 +72,18 @@ export class ProductEditComponent implements OnInit {
     this.productForm.reset();
   }
 
-  saveProduct(product:Product) {
-    if (this.productForm.valid) {
-      if (this.productForm.dirty) {
-        const savedProduct = { ...product, ...this.productForm.value };
-        if (savedProduct.id === 0) {
-          this.productService.createProduct(savedProduct).subscribe({
-            next: p => this.store.dispatch(ProductActions.setCurrectProduct({ product: p })),
-          });
-        } else {
-          this.productService.updateProduct(savedProduct).subscribe({
-            next: p => this.store.dispatch(ProductActions.setCurrectProduct({ product: p })),
-          });
-        }
+  saveProduct(product: Product) {
+    if (this.productForm.valid && this.productForm.dirty) {
+      const savedProduct = { ...product, ...this.productForm.value };
+
+      if (savedProduct.id === 0) {
+        this.store.dispatch(
+          ProductActions.createProduct({ product: savedProduct })
+        );
+      } else {
+        this.store.dispatch(
+          ProductActions.updateProduct({ product: savedProduct })
+        );
       }
     }
   }

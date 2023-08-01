@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ProductService } from '../product.service';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { Store } from '@ngrx/store';
 import { State, showCurrentProduct } from '../state/product.reducer';
+import * as ProductActions from '../state/product.action';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -10,27 +11,16 @@ import { State, showCurrentProduct } from '../state/product.reducer';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  constructor(private productService: ProductService, private store: Store<State>) { }
+  constructor(private store: Store<State>) { }
   
 
-  selectedProduct: Product | null = null;
+  selectedProduct$!: Observable<Product | null>;
 
   ngOnInit(): void {
-
-   /*  this.productService.selectedProductChanges$.subscribe((prod) => {
-      this.selectedProduct = prod;
-    }); */
-
-    this.store.select(showCurrentProduct).subscribe(curentProduct => {
-      this.selectedProduct = curentProduct;
-    })
-
+   this.selectedProduct$ =  this.store.select(showCurrentProduct)
   }
 
-  @Output() editProduct = new EventEmitter<boolean>();
-
-  editProd($event: Event) {
-    $event.preventDefault();
-    this.editProduct.emit();
+  editProd() {
+    this.store.dispatch(ProductActions.toggleEditProductComp())
   }
 }

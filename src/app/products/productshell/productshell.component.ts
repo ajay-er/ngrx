@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { State, showEditComponent } from '../state/product.reducer';
 import { Store } from '@ngrx/store';
-import * as ProductActions from '../state/product.action';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-productshell',
@@ -9,20 +9,12 @@ import * as ProductActions from '../state/product.action';
   styleUrls: ['./productshell.component.css'],
 })
 export class ProductshellComponent {
-  @Input() editButton = false;
+  editButton$!: Observable<boolean>;
+
   constructor(private store: Store<State>) { }
 
-  onEditProduct() {
-    // this.editButton = !this.editButton;
-    this.store.dispatch(ProductActions.toggleEditProductComp());
-  }
-
-
   ngOnInit() {
-    this.store.select(showEditComponent).subscribe((editCompStatus) => {
-      this.editButton = editCompStatus
-    })
+    this.editButton$ = this.store.select(showEditComponent);        
   }
-
 
 }

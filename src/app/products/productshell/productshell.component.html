@@ -3,8 +3,8 @@
         <app-productlist ></app-productlist>
     </div>
     <div class='col-md-8 d-flex'>
-        <app-product  (editProduct)="onEditProduct()"></app-product>
-        <app-productedit *ngIf="editButton"></app-productedit>
+        <app-product></app-product>
+        <app-productedit *ngIf="(editButton$ | async)"></app-productedit>
     </div>
   </div>
 

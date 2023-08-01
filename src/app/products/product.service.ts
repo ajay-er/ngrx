@@ -30,7 +30,7 @@ export class ProductService {
       );
   }
 
-  // Return an initialized product
+ /*  // Return an initialized product
   newProduct(): Product {
     return {
         id: 0,
@@ -40,7 +40,7 @@ export class ProductService {
         imageSrc:'',
         price: 0,
     };
-  }
+  } */
 
   createProduct(product: Product): Observable<Product> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -70,9 +70,6 @@ export class ProductService {
     return this.http.put<Product>(url, product, { headers })
       .pipe(
         tap(() => console.log('updateProduct: ' + product.id)),
-       
-       
-        // Return the product on an update
         map(() => product),
         catchError(this.handleError)
       );

@@ -1,4 +1,4 @@
-    <div class="mt-5 d-flex">
+<div class="mt-5 d-flex" *ngIf="product$ | async">
         <div  class="card p-3 ms-3 bg-white">
             <form  [formGroup]="productForm">
                 <fieldset>

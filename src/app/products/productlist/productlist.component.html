@@ -3,12 +3,12 @@
         All products
     </div>
 
-    <div class="card-body">
+    <div class="card-body" *ngIf="(products$ | async) as products" >
         <div class="list-group">
-            <button class="list-group-item  list-group-item-action rounded-0" *ngFor="let product of products"
-                [ngClass]="{'active': product?.id === selectedProduct?.id}" (click)="productSelected(product)">
+            <button class="list-group-item  list-group-item-action rounded-0" *ngFor="let product of products "
+                [ngClass]="{'active': product?.id === (selectedProduct$ | async)?.id}" (click)="productSelected(product)">
                 {{product.title}} 
-                <ng-container *ngIf="showProductPrice">
+                <ng-container *ngIf="showProductPrice$ | async">
                        - <span class="text-danger fw-bold">${{product.price}}</span>
                 </ng-container>
             </button>
@@ -21,7 +21,7 @@
                 <label>
                     <input class="form-check-input" type="checkbox"
                     (change)="checkChanged()"
-                    [checked]="showProductPrice">
+                    [checked]="(showProductPrice$ | async)">
                     Display Product Price
                 </label>
             </div>
