@@ -78,6 +78,8 @@ export class ProductEditComponent implements OnInit {
         this.store.dispatch(
           ProductActions.updateProduct({ product: savedProduct })
         );
+        this.store.dispatch(ProductActions.hideEditProductComp());
+
       }
     }
   }
