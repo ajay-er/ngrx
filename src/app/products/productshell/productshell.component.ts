@@ -57,6 +57,24 @@ export class ProductshellComponent {
     this.store.dispatch(ProductPageActions.initializeCurrentProduct());
   }
 
+  deleteProduct(product: Product): void {
+    this.store.dispatch(ProductPageActions.deleteProduct({ productId: product.id! }));
+  }
 
+  clearProduct(): void {
+    this.store.dispatch(ProductPageActions.clearCurrentProduct());
+    this.store.dispatch(ProductPageActions.hideEditProductComp());
+  }
   
+  saveProduct(product: Product): void {
+    this.store.dispatch(ProductPageActions.createProduct({ product }));
+  }
+
+  updateProduct(product: Product): void {
+    this.store.dispatch(ProductPageActions.updateProduct({ product }));
+  }
+
+  toggleEdit(): void{
+    this.store.dispatch(ProductPageActions.toggleEditProductComp());
+  }
 }

@@ -1,25 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../Product';
-import { Store } from '@ngrx/store';
-import { State, showCurrentProduct } from '../state';
-import {ProductPageActions} from '../state/actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ProductComponent implements OnInit {
-  constructor(private store: Store<State>) {}
-
-  selectedProduct$!: Observable<Product | null>;
-
-  ngOnInit(): void {
-    this.selectedProduct$ = this.store.select(showCurrentProduct);
-  }
+export class ProductComponent {
+  @Input() selectedProduct: Product | null = null;
+  @Output() toggleEditButton = new EventEmitter<void>();
 
   editProd() {
-    this.store.dispatch(ProductPageActions.toggleEditProductComp());
+    this.toggleEditButton.emit();
   }
 }

@@ -9,8 +9,17 @@
         ></app-productlist>
     </div>
     <div class='col-md-8 d-flex'>
-        <app-product></app-product>
-        <app-productedit *ngIf="(editButton$ | async)"></app-productedit>
+        <app-product
+        [selectedProduct]="(selectedProduct$ | async)!"
+        (toggleEditButton)="toggleEdit()"
+        ></app-product>
+        <app-productedit 
+        [selectedProduct]="(selectedProduct$ | async)!"
+        (clear)="clearProduct()"
+        (update)="updateProduct($event)"
+        (delete)="deleteProduct($event)"
+        (create)="saveProduct($event)"
+        *ngIf="(editButton$ | async)"></app-productedit>
     </div>
   </div>
 

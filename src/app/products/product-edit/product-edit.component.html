@@ -1,4 +1,4 @@
-<div class="mt-5 d-flex" *ngIf="product$ | async">
+<div class="mt-5 d-flex" >
         <div  class="card p-3 ms-3 bg-white">
             <form  [formGroup]="productForm">
                 <fieldset>
@@ -41,14 +41,14 @@
                     <div class="d-flex mt-5 col-md-10 col-md-offset-2">
                         <span>
                             <button class="btn btn-primary" type="submit" style="width:80px;margin-right:10px"
-                           (click)="saveProduct(product)" 
+                           (click)="saveProduct(selectedProduct)" 
                            [disabled]="!productForm.valid || !productForm.dirty" >
                                 Save
                             </button>
                         </span>
                        
                         <span>
-                            <button class="btn btn-danger" type="button" style="width:80px" (click)="deleteProduct(product)">
+                            <button class="btn btn-danger" type="button" style="width:80px" (click)="deleteProduct(selectedProduct)">
                                 Delete
                             </button>
                         </span>
