@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { State, showCurrentProduct } from '../state/product.reducer';
+import { State, showCurrentProduct } from '../state';
 import { Store } from '@ngrx/store';
 import * as ProductActions from '../state/product.action';
 import { Observable, tap } from 'rxjs';
