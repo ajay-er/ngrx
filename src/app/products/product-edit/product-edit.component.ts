@@ -12,10 +12,7 @@ import { Observable, tap } from 'rxjs';
   styleUrls: ['./product-edit.component.css'],
 })
 export class ProductEditComponent implements OnInit {
-  constructor(
-    private fb: FormBuilder,
-    private store: Store<State>
-  ) {
+  constructor(private fb: FormBuilder, private store: Store<State>) {
     this.productForm = this.fb.group({
       title: ['', Validators.required],
       subtitle: ['', Validators.required],
@@ -51,7 +48,9 @@ export class ProductEditComponent implements OnInit {
   deleteProduct(product: Product): void {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.title}?`)) {
-        this.store.dispatch(ProductActions.deleteProduct({productId:product.id}));
+        this.store.dispatch(
+          ProductActions.deleteProduct({ productId: product.id })
+        );
       }
     } else {
       // No need to delete, it was never saved
@@ -79,7 +78,6 @@ export class ProductEditComponent implements OnInit {
           ProductActions.updateProduct({ product: savedProduct })
         );
         this.store.dispatch(ProductActions.hideEditProductComp());
-
       }
     }
   }

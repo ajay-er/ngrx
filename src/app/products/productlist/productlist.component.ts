@@ -1,51 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../Product';
-import { Store } from '@ngrx/store';
-import {
-  State,
-  getProducts,
-  getShowProductPrice,
-  showCurrentProduct,
-} from '../state/product.reducer';
-import * as ProductActions from '../state/product.action';
-import { Observable, filter } from 'rxjs';
 
 @Component({
   selector: 'app-productlist',
   templateUrl: './productlist.component.html',
   styleUrls: ['./productlist.component.css'],
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
-export class ProductlistComponent implements OnInit {
-  constructor(private store: Store<State>) {}
+export class ProductlistComponent {
+  @Input() showProductPrice: boolean = false;
+  @Input() products!: Product[];
+  @Input() selectedProduct: Product | null = null;
 
-  products$!: Observable<Product[]>;
-  selectedProduct$!: Observable<Product|null>;
-  showProductPrice$!: Observable<boolean>;
+  @Output() displayPriceChanged = new EventEmitter<boolean>();
+  @Output() initializeNewProduct = new EventEmitter<void>();
+  @Output() productWasSelected = new EventEmitter<Product>();
 
-  ngOnInit(): void {
-    //*dispatch products
-    this.store.dispatch(ProductActions.loadProducts());
-
-    //*load products
-    this.products$ = this.store.select(getProducts);
-
-    //*show current product
-    this.selectedProduct$ = this.store.select(showCurrentProduct)
-    
-    //*show current product price
-    this.showProductPrice$ = this.store.select(getShowProductPrice);
+  productSelected(product: Product) {
+    this.productWasSelected.emit(product);
   }
 
-  productSelected(product: Product): void {
-    this.store.dispatch(ProductActions.setCurrectProduct({ currentProductId :product.id! }));
+  addNewProd() {
+    this.initializeNewProduct.emit();
   }
 
-  checkChanged(): void {
-    this.store.dispatch(ProductActions.toggleProductPrice());
-  }
-
-  addNewProd(): void {
-    this.store.dispatch(ProductActions.previewEditProductComp());
-    this.store.dispatch(ProductActions.initializeCurrentProduct());
+  checkChanged() {
+    this.displayPriceChanged.emit();
   }
 }

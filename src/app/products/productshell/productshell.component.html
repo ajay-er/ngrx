@@ -1,6 +1,12 @@
 <div class='row'>
     <div class='col-md-4 p-5'>
-        <app-productlist ></app-productlist>
+        <app-productlist [showProductPrice]="(showProductPrice$ | async)!"
+        [products]="(products$ | async)!"
+        [selectedProduct]="(selectedProduct$ | async)!"
+        (displayPriceChanged)="checkChanged()"
+        (initializeNewProduct)="addNewProd()"
+        (productWasSelected)="productSelected($event)"
+        ></app-productlist>
     </div>
     <div class='col-md-8 d-flex'>
         <app-product></app-product>
