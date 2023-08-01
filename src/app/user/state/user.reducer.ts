@@ -1,36 +1,53 @@
 import {
-  Store,
-  createAction,
   createFeatureSelector,
   createReducer,
   createSelector,
   on,
 } from '@ngrx/store';
 import { User } from '../User';
+import { UserPageActions } from './action';
 
+//*selectors
+
+const getUserFeature = createFeatureSelector<UserState>('user');
+
+export const getUser = createSelector(getUserFeature, (state) => {
+  return state.currentUser;
+});
+
+export const showDataStatus = createSelector(getUserFeature, (state) => {
+  return state.sampleUserName;
+});
+
+//*reducers
 export interface UserState {
-  maskUserName: boolean;
+  sampleUserName: boolean;
   currentUser: User | null;
 }
 
 const initialState: UserState = {
-  maskUserName: true,
+  sampleUserName: false,
   currentUser: null,
 };
 
-const getUserFeature = createFeatureSelector<UserState>('user');
-
-export const getUserMaskName = createSelector(
-  getUserFeature,
-  (state) => state.maskUserName
-);
-
 export const userReducer = createReducer(
   initialState,
-  on(createAction('[User] Mask Name'), (state): UserState => {
+  on(UserPageActions.userSampleData, (state, action) => {
     return {
       ...state,
-      maskUserName: !state.maskUserName,
+      currentUser: action.userDummy,
+    };
+  }),
+  on(UserPageActions.clearUserSampleData, (state) => {
+    return {
+      ...state,
+      currentUser: null,
+    };
+  }),
+  on(UserPageActions.toogleUserData, (state) => {
+    return {
+      ...state,
+      sampleUserName: !state.sampleUserName,
     };
   })
 );

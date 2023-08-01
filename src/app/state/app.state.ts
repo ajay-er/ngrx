@@ -1,5 +1,5 @@
 import { UserState } from "../user/state/user.reducer";
 
-export interface State{
+export interface State {
     user:UserState
 }
