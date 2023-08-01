@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
 import { Product } from '../Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { State, showCurrentProduct } from '../state/product.reducer';
@@ -14,7 +13,6 @@ import { Observable, tap } from 'rxjs';
 })
 export class ProductEditComponent implements OnInit {
   constructor(
-    private productService: ProductService,
     private fb: FormBuilder,
     private store: Store<State>
   ) {
@@ -38,26 +36,22 @@ export class ProductEditComponent implements OnInit {
   }
 
   displayProduct(currentProduct: Product) {
-    this.product = currentProduct;
+    if (currentProduct) {
+      this.product = currentProduct;
 
-    this.productForm?.setValue({
-      title: this.product?.title,
-      subtitle: this.product?.subtitle,
-      price: this.product?.price,
-      category: this.product?.category,
-    });
+      this.productForm?.setValue({
+        title: this.product?.title,
+        subtitle: this.product?.subtitle,
+        price: this.product?.price,
+        category: this.product?.category,
+      });
+    }
   }
 
   deleteProduct(product: Product): void {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.title}?`)) {
-        this.productService.deleteProduct(product.id).subscribe({
-          next: () => {
-            this.store.dispatch(ProductActions.clearCurrentProduct());
-            this.store.dispatch(ProductActions.hideEditProductComp());
-            this.productForm.reset();
-          },
-        });
+        this.store.dispatch(ProductActions.deleteProduct({productId:product.id}));
       }
     } else {
       // No need to delete, it was never saved

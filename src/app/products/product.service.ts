@@ -59,7 +59,6 @@ export class ProductService {
     return this.http.delete<Product>(url, { headers })
       .pipe(
         tap(data => console.log('deleteProduct: ' + id)),
-       
         catchError(this.handleError)
       );
   }
