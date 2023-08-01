@@ -8,7 +8,7 @@ import {
   showCurrentProduct,
   showEditComponent,
 } from '../state';
-import * as ProductActions from '../state/product.action';
+import { ProductPageActions }  from '../state/actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -27,7 +27,7 @@ export class ProductshellComponent {
 
   ngOnInit(): void {
     //*dispatch products
-    this.store.dispatch(ProductActions.loadProducts());
+    this.store.dispatch(ProductPageActions.loadProducts());
 
     //*edit component toggle
     this.editButton$ = this.store.select(showEditComponent);
@@ -44,16 +44,19 @@ export class ProductshellComponent {
 
   productSelected(product: Product): void {
     this.store.dispatch(
-      ProductActions.setCurrectProduct({ currentProductId: product.id! })
+      ProductPageActions.setCurrectProduct({ currentProductId: product.id! })
     );
   }
 
   checkChanged(): void {
-    this.store.dispatch(ProductActions.toggleProductPrice());
+    this.store.dispatch(ProductPageActions.toggleProductPrice());
   }
 
   addNewProd(): void {
-    this.store.dispatch(ProductActions.previewEditProductComp());
-    this.store.dispatch(ProductActions.initializeCurrentProduct());
+    this.store.dispatch(ProductPageActions.previewEditProductComp());
+    this.store.dispatch(ProductPageActions.initializeCurrentProduct());
   }
+
+
+  
 }

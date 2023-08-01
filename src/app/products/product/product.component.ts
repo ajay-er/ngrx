@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../Product';
 import { Store } from '@ngrx/store';
 import { State, showCurrentProduct } from '../state';
-import * as ProductActions from '../state/product.action';
+import {ProductPageActions} from '../state/actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -20,6 +20,6 @@ export class ProductComponent implements OnInit {
   }
 
   editProd() {
-    this.store.dispatch(ProductActions.toggleEditProductComp());
+    this.store.dispatch(ProductPageActions.toggleEditProductComp());
   }
 }

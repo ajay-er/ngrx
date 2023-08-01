@@ -3,7 +3,7 @@ import { Product } from '../Product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { State, showCurrentProduct } from '../state';
 import { Store } from '@ngrx/store';
-import * as ProductActions from '../state/product.action';
+import {ProductPageActions} from '../state/actions';
 import { Observable, tap } from 'rxjs';
 
 @Component({
@@ -49,19 +49,19 @@ export class ProductEditComponent implements OnInit {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.title}?`)) {
         this.store.dispatch(
-          ProductActions.deleteProduct({ productId: product.id })
+          ProductPageActions.deleteProduct({ productId: product.id })
         );
       }
     } else {
       // No need to delete, it was never saved
-      this.store.dispatch(ProductActions.clearCurrentProduct());
-      this.store.dispatch(ProductActions.hideEditProductComp());
+      this.store.dispatch(ProductPageActions.clearCurrentProduct());
+      this.store.dispatch(ProductPageActions.hideEditProductComp());
     }
   }
 
   clearProduct() {
-    this.store.dispatch(ProductActions.clearCurrentProduct());
-    this.store.dispatch(ProductActions.hideEditProductComp());
+    this.store.dispatch(ProductPageActions.clearCurrentProduct());
+    this.store.dispatch(ProductPageActions.hideEditProductComp());
     this.productForm.reset();
   }
 
@@ -71,13 +71,13 @@ export class ProductEditComponent implements OnInit {
 
       if (savedProduct.id === 0) {
         this.store.dispatch(
-          ProductActions.createProduct({ product: savedProduct })
+          ProductPageActions.createProduct({ product: savedProduct })
         );
       } else {
         this.store.dispatch(
-          ProductActions.updateProduct({ product: savedProduct })
+          ProductPageActions.updateProduct({ product: savedProduct })
         );
-        this.store.dispatch(ProductActions.hideEditProductComp());
+        this.store.dispatch(ProductPageActions.hideEditProductComp());
       }
     }
   }
