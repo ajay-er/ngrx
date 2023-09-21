@@ -31,7 +31,9 @@ export class ProductEffects {
       concatMap((action) =>
         this.productService.updateProduct(action.product).pipe(
           map((product) => ProductApiActions.updateProductSuccess({ product })),
-          catchError((error) => of(ProductApiActions.updateProductFailure({ error })))
+          catchError((error) =>
+            of(ProductApiActions.updateProductFailure({ error }))
+          )
         )
       )
     );
@@ -43,7 +45,9 @@ export class ProductEffects {
       mergeMap((action) =>
         this.productService.deleteProduct(action.productId).pipe(
           map(() =>
-            ProductApiActions.deleteProductSuccess({ productId: action.productId })
+            ProductApiActions.deleteProductSuccess({
+              productId: action.productId,
+            })
           ),
           catchError((error) =>
             of(ProductApiActions.deleteProductFailure({ error }))

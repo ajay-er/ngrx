@@ -1,5 +1,6 @@
 <div class='row'>
     <div class='col-md-4 p-5'>
+        
         <app-productlist [showProductPrice]="(showProductPrice$ | async)!"
         [products]="(products$ | async)!"
         [selectedProduct]="(selectedProduct$ | async)!"
@@ -7,12 +8,15 @@
         (initializeNewProduct)="addNewProd()"
         (productWasSelected)="productSelected($event)"
         ></app-productlist>
+
     </div>
     <div class='col-md-8 d-flex'>
+
         <app-product
         [selectedProduct]="(selectedProduct$ | async)!"
         (toggleEditButton)="toggleEdit()"
         ></app-product>
+
         <app-productedit 
         [selectedProduct]="(selectedProduct$ | async)!"
         (clear)="clearProduct()"
