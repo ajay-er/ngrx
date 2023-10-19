@@ -7,6 +7,7 @@ import { ProductlistComponent } from './productlist/productlist.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { productReducer } from './state/product.reducer';
+import { ProductRoutingModule } from './product-routing.module';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { productReducer } from './state/product.reducer';
     ReactiveFormsModule,
     FormsModule,
     StoreModule.forFeature('products', productReducer),
+    ProductRoutingModule
   ],
   declarations: [
     ProductComponent,
